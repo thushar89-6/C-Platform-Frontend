@@ -1,11 +1,12 @@
 .left {
     display: inline-block;
-    /* border: 2px solid red; */
     position: absolute;
     left: 60px;
     top: 20px;
 }
-
+.container {
+    background-color: midnightblue;
+}
 .left img {
     width: 64px;
     border-radius: 11px;
@@ -34,6 +35,7 @@
 
 .navbar {
     display: inline-block;
+    margin: 20px;
 }
 
 .navbar li {

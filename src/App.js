@@ -1,29 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
-import Navbar from './Components/Navbar';
-import Question from './Components/Question';
-import { useEffect, useState} from 'react';
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './Pages/Home'
+import Question from './Pages/Question'
 
 function App() {
-  const [arr,setarr] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-        const response = await fetch('http://192.168.62.3:8080/');
-        const data = await response.json();
-        setarr(data);
-    };
-    fetchData();
-  }, []);
-
-
-
   return (
-    <>
-    <Navbar></Navbar>
-    {arr && arr.map((ele)=>(<Question key={ele} qname={ele.desc}/>))}
-    </>
-)
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/question/*" element={<Question/>} /> 
+          </Routes>
+        </BrowserRouter>   
+  );
 }
 
 export default App;

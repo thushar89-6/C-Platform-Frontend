@@ -1,15 +1,15 @@
 import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
-import {AcmeLogo} from "./AcmeLogo.jsx";
+//// sm:flex gap-4
 
 export default function App() {
   return (
     <Navbar isBordered>
       <NavbarBrand>
         <img src="Logo.png" height="36px" width="36px" ></img>
-        <p className="font-bold text-inherit">&nbsp;&nbsp;C-Platform</p>
+        <p className="font-bold text-inherit px-2">C-Platform</p>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden" justify="center">
         <NavbarItem>
           <Link color="foreground" href="#">
             Features

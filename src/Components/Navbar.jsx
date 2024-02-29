@@ -1,28 +1,41 @@
-import '../CSS/Navbar.css'
-function Navbar() {
-    return (
-        <>
-        <header className="header_">
-           <div className="container">
-            <div className="left">
-                <img src="Logo.png" alt="Coding Platform Logo"></img>
-            </div>
-            <div className="mid">
-                <ul className="navbar">
-                    <li><a href="#About">About Us</a></li>
-                    <li><a href="#Problrms">Problems</a></li>
-                    <li><a href="#Progress">Progress</a></li>
-                </ul>
-            </div>
+import React from "react";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
+import {AcmeLogo} from "./AcmeLogo.jsx";
 
-            <div className="right">
-                <button className="btn">Login</button>
-                <button className="btn">Sign Up</button>
-            </div>
-        </div>
-        </header>
-        </>
-    )
+export default function App() {
+  return (
+    <Navbar isBordered>
+      <NavbarBrand>
+        <img src="Logo.png" height="36px" width="36px" ></img>
+        <p className="font-bold text-inherit">&nbsp;&nbsp;C-Platform</p>
+      </NavbarBrand>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            Features
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive>
+          <Link href="#" aria-current="page">
+            Customers
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            Integrations
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent justify="end">
+        <NavbarItem className="lg:flex">
+          <Link href="#">Login</Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Button as={Link} color="primary" href="#" variant="flat">
+            Sign Up
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
+    </Navbar>
+  );
 }
-
-export default Navbar;

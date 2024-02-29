@@ -47,10 +47,9 @@ function Question() {
   fileref.current.value=null;
 };
 
-  
 
   return (
-    <>
+    <div className="h-screen">
       <Navbar></Navbar>
       {JSON.stringify(arr)}
       <div>
@@ -62,7 +61,7 @@ function Question() {
       <div>
         {result && JSON.stringify(result)}
       </div>
-    </>
+    </div>
   )
 }
 

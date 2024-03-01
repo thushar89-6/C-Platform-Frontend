@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 
 
-function Home() {
+function Home(props) {
     const [arr,setarr] = useState(null);
     useEffect(() => {
       const fetchData = async () => {
@@ -23,7 +23,7 @@ function Home() {
     return (
       <>
       <div className='h-screen'> 
-        <Navbar></Navbar>
+        <Navbar {...props}></Navbar>
         <div className='flex justify-center'>
           <ListboxWrapper>
             <Listbox>

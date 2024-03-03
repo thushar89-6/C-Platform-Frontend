@@ -50,6 +50,10 @@ function Question(props) {
   });
 };
 
+useEffect(()=>{
+  if (result && result.accepted===true) confetti()  
+},[result]);
+
 const [lang,setlang] = useState("cpp");
 const [com,setcom]= useState("//Write Your code here")
 
@@ -89,7 +93,6 @@ const [code,setcode]=useState(null);
                  <form onSubmit={subsolution} encType='multipart/form-data'>
                     <div>
                       <Button className="my-3" size="sm" onClick={subsolution}
-                      onPress={()=>{confetti()}}
                       > Submit </Button>
                     </div>
                   </form>

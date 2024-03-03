@@ -5,6 +5,7 @@ import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import Editor from "@monaco-editor/react";
 import { Button } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
+import MediaQuery from 'react-responsive';
 function Question(props) {
 
   //get id of current question page
@@ -62,9 +63,52 @@ const [code,setcode]=useState(null);
     <>
     <div className={`h-screen flex flex-col ${props.toggle.dark?"bg-gray-950":""}`}>
       <Navbar {...props} question={true} setcom={setcom} setlang={setlang} toggledark/>
-      <div className="flex-grow">
+    
+        <MediaQuery query="(max-device-width: 1024px)" className="overflow-scroll">
+        <PanelGroup direction="vertical">
+          <Panel className='mx-8'>
+            <div className='p-3'>
+              <h1 key="1"  className='pt-2 pb-2'>{arr && arr.name}</h1>
+              <div>{arr && arr.desc.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <h4 key="2" className='pt-5 pb-2'>Constraints:</h4>
+              <div>{arr && arr.constraints.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <h4 key="3" className='pt-5 pb-2'>Input</h4>
+              <div>{arr && arr.input.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <h4 key="4" className='pt-5 pb-2'>Output</h4>
+              <div>{arr && arr.output.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+            </div>
+          </Panel>
+          <PanelResizeHandle className={`h-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
+        
+              <Panel>
+                  <Editor language={lang} theme={props.toggle.dark?'vs-dark':'light'} 
+                  value={com}
+                   onChange={(v,e)=>setcode(v)}
+                   options={{minimap: { enabled: false }}}
+                   ></Editor>
+                 
+              </Panel>
+              <PanelResizeHandle className={`h-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
+              <Panel >
+                 <form onSubmit={subsolution} encType='multipart/form-data'>
+                    <div>
+                      <Button className="my-3" size="sm" onClick={subsolution}
+                      > Submit </Button>
+                    </div>
+                  </form>
 
-      <PanelGroup direction="horizontal">
+                {result && JSON.stringify(result)}
+              </Panel>
+      
+        </PanelGroup>
+        
+        </MediaQuery>
+
+
+        <MediaQuery query="(min-device-width: 1025px)" className='h-screen'>
+        <div className="flex-grow">
+
+        <PanelGroup direction="horizontal">
           <Panel className='mx-8' minSize={40}>
             <div className='p-3'>
               <h1 key="1"  className='pt-2 pb-2'>{arr && arr.name}</h1>
@@ -102,7 +146,11 @@ const [code,setcode]=useState(null);
             </PanelGroup>
           </Panel>
         </PanelGroup>
-      </div>
+        </div>
+
+        </MediaQuery>
+
+      
       </div>
     </>
   )

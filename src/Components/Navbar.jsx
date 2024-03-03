@@ -11,10 +11,17 @@ export default function Navbar_(props) {
     props.toggle.setdark(!props.toggle.dark);
   }
   const language = [
-    {label: "C++", value: "cpp"},
-    {label: "Python", value: "python"},
-    {label: "JS", value: "javascript"},]
+    {label: "C++", value: "cpp",},
+    {label: "Python", value: "python", },
+    {label: "JS", value: "javascript",},]
 
+  const setcomment = (e)=>{
+    switch(e){
+      case "cpp": props.setcom("//Write your code here.");break;
+      case "python": props.setcom("#Write your code here");break;
+      case "javascript": props.setcom("//Write your code here.");break;
+    }
+  }
     return (
     <Navbar className={props.toggle.dark? "dark": ""} isBordered>
       <NavbarBrand>
@@ -45,8 +52,11 @@ export default function Navbar_(props) {
                         className="w-[110px]"
                         radius='full'
                         size=""
-                        onChange={(e)=>props.language.setlang(e.target.value)}
-                        >
+                        onChange={(e)=>{
+                          props.setlang(e.target.value)
+                          setcomment(e.target.value);
+                        }
+                        }>
                         {language.map((lang) => (
                           <SelectItem key={lang.value} value={lang.value}>
                             {lang.label}

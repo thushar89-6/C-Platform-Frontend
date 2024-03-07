@@ -6,6 +6,7 @@ import Editor from "@monaco-editor/react";
 import { Button } from '@nextui-org/react';
 import confetti from 'canvas-confetti';
 import MediaQuery from 'react-responsive';
+import {ScrollShadow} from "@nextui-org/react";
 function Question(props) {
 
   //get id of current question page
@@ -109,6 +110,7 @@ const [code,setcode]=useState(null);
         <div className="flex-grow">
 
         <PanelGroup direction="horizontal">
+
           <Panel className='mx-8' minSize={40}>
             <div className='p-3'>
               <h1 key="1"  className='pt-2 pb-2'>{arr && arr.name}</h1>
@@ -121,8 +123,11 @@ const [code,setcode]=useState(null);
               <div>{arr && arr.output.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
             </div>
           </Panel>
+
           <PanelResizeHandle className={`w-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
+
           <Panel  minSize={20}>
+            
             <PanelGroup direction="vertical"  >
               <Panel minSize={20} className='flex-col'>
                   <Editor language={lang} theme={props.toggle.dark?'vs-dark':'light'} 
@@ -133,15 +138,20 @@ const [code,setcode]=useState(null);
                  
               </Panel>
               <PanelResizeHandle className={`h-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
-              <Panel minSize={20}>
+              <Panel minSize={20} className='flex flex-col'>
                  <form onSubmit={subsolution} encType='multipart/form-data'>
-                    <div>
+                    <div className>
                       <Button className="my-3" size="sm" onClick={subsolution}
                       > Submit </Button>
                     </div>
                   </form>
+                {result && result.warnings!=="" && 
+                  <ScrollShadow className='pl-5'>
+                    <div className="text-red-600">Warnings:</div>
+                    {result.warnings.split("\n").map((ele)=>(<div>{ele}</div>))}
+                  </ScrollShadow>
+                }
 
-                {result && JSON.stringify(result)}
               </Panel>
             </PanelGroup>
           </Panel>

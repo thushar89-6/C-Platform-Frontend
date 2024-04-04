@@ -151,6 +151,18 @@ const [code,setcode]=useState(null);
                     {result.warnings.split("\n").map((ele)=>(<div>{ele}</div>))}
                   </ScrollShadow>
                 }
+                {result && result.warnings==="" && result.total==result.passed && 
+                <ScrollShadow className='pl-5'>
+                <div className="text-green-600">Accepted</div>
+                {`Passed ${result.passed}/${result.total} testcases.` }
+              </ScrollShadow>
+                }
+                 {result && result.warnings==="" && result.total!=result.passed && 
+                <ScrollShadow className='pl-5'>
+                <div className="text-grey-600">All testcases are not passed</div>
+                {`Passed ${result.passed}/${result.total} testcases.` }
+              </ScrollShadow>
+                }
 
               </Panel>
             </PanelGroup>

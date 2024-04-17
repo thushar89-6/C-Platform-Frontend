@@ -7,6 +7,8 @@ import { Select, SelectItem } from "@nextui-org/react";
 //// sm:flex gap-4
 
 export default function Navbar_(props) {
+ 
+
   function toggle(){
     props.toggle.setdark(!props.toggle.dark);
   }
@@ -64,6 +66,26 @@ export default function Navbar_(props) {
                         ))}
                       </Select>
         </NavbarItem>
+       
+        
+        <NavbarItem className="lg:flex">
+          <Link href={props.loggedin?"/":"/login"}>
+          {props.loggedin?props.session && props.session.email:"Login"}
+          </Link>
+        </NavbarItem>
+        
+          {props.loggedin &&
+        <NavbarItem>
+          <Button as={Link} color="primary" variant="flat" href="/">
+            Rating: {props.session && props.session.points}
+          </Button>
+        </NavbarItem>
+          }
+        <NavbarItem className={props.question? "hidden":""}>
+          <Button as={Link} color="primary" href={props.loggedin? "/logout":"/register"} variant="flat">
+            {props.loggedin? "Logout" : "SignUp"}
+          </Button>
+        </NavbarItem>
         <NavbarItem>
         <Switch
           onValueChange={toggle}
@@ -73,14 +95,7 @@ export default function Navbar_(props) {
           endContent={<MoonIcon />}
         >
         </Switch>
-        </NavbarItem>
-        <NavbarItem className="lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+        
         </NavbarItem>
       </NavbarContent>
     </Navbar>

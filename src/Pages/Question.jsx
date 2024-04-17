@@ -21,6 +21,7 @@ function Question(props) {
     const fetchData = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/question?id=${id}`);
       const data = await response.json();
+      console.log(data)
       setarr(data);
     };
     fetchData();
@@ -57,15 +58,15 @@ useEffect(()=>{
 },[result]);
 
 const [lang,setlang] = useState("cpp");
-const [com,setcom]= useState("//Write Your code here")
+const [com,setcom]= useState("#include<bits/stdc++.h>\nusing namespace std;\n\nint main(){\n\t//Write Your code here\n\n\n\treturn 0;\n}")
 
 const [code,setcode]=useState(null);
   return (
     <>
-    <div className={`h-screen flex flex-col ${props.toggle.dark?"bg-gray-950":""}`}>
+    <div className={`flex flex-col ${props.toggle.dark?"bg-gray-950":""} h-[100vh]`}>
       <Navbar {...props} question={true} setcom={setcom} setlang={setlang} toggledark/>
     
-        <MediaQuery query="(max-device-width: 1024px)" className="overflow-scroll">
+        <MediaQuery query="(max-device-width: 1024px)">
         <PanelGroup direction="vertical">
           <Panel className='mx-8'>
             <div className='p-3'>
@@ -74,9 +75,15 @@ const [code,setcode]=useState(null);
               <h4 key="2" className='pt-5 pb-2'>Constraints:</h4>
               <div>{arr && arr.constraints.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
               <h4 key="3" className='pt-5 pb-2'>Input</h4>
-              <div>{arr && arr.input.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <div>{arr && arr.input1.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
               <h4 key="4" className='pt-5 pb-2'>Output</h4>
-              <div>{arr && arr.output.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <div>{arr && arr.output1.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <div>{arr && arr.input2.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <h4 key="4" className='pt-5 pb-2'>Output</h4>
+              <div>{arr && arr.output2.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <div>{arr && arr.input3.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <h4 key="4" className='pt-5 pb-2'>Output</h4>
+              <div>{arr && arr.output3.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
             </div>
           </Panel>
           <PanelResizeHandle className={`h-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
@@ -107,27 +114,35 @@ const [code,setcode]=useState(null);
 
 
         <MediaQuery query="(min-device-width: 1025px)" className='h-screen'>
-        <div className="flex-grow">
+        {/* <div className="flex-grow"> */}
 
         <PanelGroup direction="horizontal">
 
           <Panel className='mx-8' minSize={40}>
-            <div className='p-3'>
+            <div className='p-3 overflow-y-auto max-h-[92vh]'>
               <h1 key="1"  className='pt-2 pb-2'>{arr && arr.name}</h1>
               <div>{arr && arr.desc.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
               <h4 key="2" className='pt-5 pb-2'>Constraints:</h4>
               <div>{arr && arr.constraints.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
-              <h4 key="3" className='pt-5 pb-2'>Input</h4>
-              <div>{arr && arr.input.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
-              <h4 key="4" className='pt-5 pb-2'>Output</h4>
-              <div>{arr && arr.output.split("\n").map((ele,idx)=>(<div key={idx}>{ele}</div>))}</div>
+              <h4 className='pt-5 pb-2'> {"\nSample Testcase:"} </h4>
+              <h3 key="3" className='pt-3 pb-0'>{arr && arr.input1 && "Input:"}</h3>
+              <div   className={`border-l-3 ${props.toggle.dark? "bg-gray-800" : "bg-gray-200 border-gray-400"}`}>{arr && arr.input1.split("\n").map((ele,idx)=>(<div  className="pl-2 whitespace-pre" key={idx}>{ele}</div>))}</div>
+              <h3 key="4" className='pt-0 pb-0'>{arr && arr.output1 && "Output:"}</h3>
+              <div  className={`border-l-3 ${props.toggle.dark? "bg-gray-800" : "bg-gray-200 border-gray-400"}`}>{arr && arr.output1.split("\n").map((ele,idx)=>(<div className="pl-2 whitespace-pre"  key={idx}>{ele}</div>))}</div>
+              <h3 key="3" className='pt-3 pb-0'>{arr && arr.input2 && "Input:"}</h3>
+              <div  className={`border-l-3 ${props.toggle.dark? "bg-gray-800" : "bg-gray-200 border-gray-400"}`}>{arr && arr.input2.split("\n").map((ele,idx)=>(<div  className="pl-2 whitespace-pre" key={idx}>{ele}</div>))}</div>
+              <h3 key="5" className='pt-0 pb-0'>{arr && arr.input2 && "Output:"}</h3>
+              <div  className={`border-l-3 ${props.toggle.dark? "bg-gray-800" : "bg-gray-200 border-gray-400"}`}>{arr && arr.output2.split("\n").map((ele,idx)=>(<div className="pl-2 whitespace-pre"  key={idx}>{ele}</div>))}</div>
+              <h3 key="3" className='pt-3 pb-0'>{arr && arr.input3 && "Input:"}</h3>
+              <div  className={`border-l-3 ${props.toggle.dark? "bg-gray-800" : "bg-gray-200 border-gray-400"}`}>{arr && arr.input3.split("\n").map((ele,idx)=>(<div  className="pl-2 whitespace-pre" key={idx}>{ele}</div>))}</div>
+              <h3 key="6" className='pt-0 pb-0'>{arr && arr.input3 && "Output:"}</h3>
+              <div  className={`border-l-3 ${props.toggle.dark? "bg-gray-800" : "bg-gray-200 border-gray-400"}`}>{arr && arr.output3.split("\n").map((ele,idx)=>(<div className="pl-2 whitespace-pre"  key={idx}>{ele}</div>))}</div>
             </div>
           </Panel>
 
           <PanelResizeHandle className={`w-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
 
-          <Panel  minSize={20}>
-            
+          <Panel minSize={20}>
             <PanelGroup direction="vertical"  >
               <Panel minSize={20} className='flex-col'>
                   <Editor language={lang} theme={props.toggle.dark?'vs-dark':'light'} 
@@ -168,7 +183,7 @@ const [code,setcode]=useState(null);
             </PanelGroup>
           </Panel>
         </PanelGroup>
-        </div>
+        {/* </div> */}
 
         </MediaQuery>
 

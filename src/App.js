@@ -5,14 +5,14 @@ import Home from './Pages/Home'
 import Question from './Pages/Question'
 import Login  from './Pages/Login';
 import Register from './Pages/Register';
-import Cookies from 'js-cookie'
 
 function App() {
   const [session,setSession]=useState(null);
   const [dark,setdark] = useState(false);
   const [loggedin,setLoggedin] = useState(false);
   useEffect(()=>{
-    const c = Cookies.get("accessToken")
+    const c = document.cookie.split("=")[1]
+    console.log(c)
         if (c) {
           setLoggedin(true);
             fetch(`${process.env.REACT_APP_API_URL}/session`, {

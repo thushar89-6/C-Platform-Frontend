@@ -13,7 +13,7 @@ function App() {
   useEffect(()=>{
     const c = document.cookie.split("=")[1]
     console.log(c)
-        if (c) {
+        if (c!=="") {
           setLoggedin(true);
             fetch(`${process.env.REACT_APP_API_URL}/session`, {
               method: 'GET',

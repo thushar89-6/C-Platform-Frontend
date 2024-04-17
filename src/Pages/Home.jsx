@@ -20,7 +20,6 @@ function Home(props) {
         formData.append('points',1000);
       
         fetch(`${process.env.REACT_APP_API_URL}/recommend`, {
-        method: 'POST',
         body: formData
         }).then(response => response.json()).then(data => setrecc(data))
       };

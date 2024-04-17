@@ -21,12 +21,12 @@ function Login(props) {
         body: formData
         }).then(response => response.text()).then(data => {
           setData(data);
-          console.log(data)
-          if(data.success=="true") props.setlogin(true)
+          props.setlogin(true)
         } 
         )
         .catch(error => {
         console.error('There was a problem with login', error);
+        setData("Enter Valid Credentials")
       });    
 }
     const [email,setEmail] = useState("")
@@ -50,7 +50,7 @@ function Login(props) {
                 <div>
                     <button className='border-2 bg-gray-200'> Login </button>
                 </div>
-                {data && JSON.stringify(data)}
+                {data && data}
 
             </form>   
         </div>

@@ -8,6 +8,7 @@ import confetti from 'canvas-confetti';
 import MediaQuery from 'react-responsive';
 import {ScrollShadow} from "@nextui-org/react";
 function Question(props) {
+  const [size, setSize] = useState(10);
 
   //get id of current question page
   const location = useLocation();
@@ -31,12 +32,15 @@ function Question(props) {
   const [result, setResult] = useState();
 
   const subsolution = (event) => {
+
     event.preventDefault();
+    setSize(50)
     const formData = new FormData();
     const b = new Blob([code], { type: 'text/plain' });    
     formData.append('file', b);
     formData.append('fileName', `${id}.${lang}`);
     formData.append('id',id);
+    formData.append('email',props.session.email)
     fetch(`${process.env.REACT_APP_API_URL}/document`, {
     method: 'POST',
     body: formData
@@ -147,39 +151,49 @@ const [code,setcode]=useState(null);
               <Panel minSize={20} className='flex-col'>
                   <Editor language={lang} theme={props.toggle.dark?'vs-dark':'light'} 
                   value={com}
-                   onChange={(v,e)=>setcode(v)}
+                   onChange={(v,e)=>{setcode(v); setSize(10); setResult(null)}}
                    options={{minimap: { enabled: false }}}
                    ></Editor>
                  
               </Panel>
               <PanelResizeHandle className={`h-1 ${props.toggle.dark? "bg-gray-800" : "bg-blue-50"}`}/>
-              <Panel minSize={20} className='flex flex-col'>
-                 <form onSubmit={subsolution} encType='multipart/form-data'>
-                    <div className>
-                      <Button className="my-3" size="sm" onClick={subsolution}
-                      > Submit </Button>
-                    </div>
-                  </form>
-                {result && result.warnings!=="" && 
-                  <ScrollShadow className='pl-5'>
-                    <div className="text-red-600">Warnings:</div>
-                    {result.warnings.split("\n").map((ele)=>(<div>{ele}</div>))}
-                  </ScrollShadow>
-                }
-                {result && result.warnings==="" && result.total==result.passed && 
-                <ScrollShadow className='pl-5'>
-                <div className="text-green-600">Accepted</div>
-                {`Passed ${result.passed}/${result.total} testcases.` }
-              </ScrollShadow>
-                }
-                 {result && result.warnings==="" && result.total!=result.passed && 
-                <ScrollShadow className='pl-5'>
-                <div className="text-grey-600">All testcases are not passed</div>
-                {`Passed ${result.passed}/${result.total} testcases.` }
-              </ScrollShadow>
-                }
+              <Panel minSize={size} maxSize={size} className='flex'>
+  {result && result.warnings !== "" && (
+    <ScrollShadow className='pl-5'>
+      <div className="text-red-600">Warnings:</div>
+      {result.warnings.split("\n").map((ele) => (
+        <div>{ele}</div>
+      ))}
+    </ScrollShadow>
+  )}
+  
+  <div className='absolute right-28 ml-auto' >
+      <Button className={`my-3 ${props.toggle.dark? "bg-red-950" : "bg-red-200"}`} size="sm" onClick={subsolution}>
+        Skip
+      </Button>
+    </div>
+  <form className="absolute right-10" onSubmit={subsolution} encType='multipart/form-data' style={{ marginLeft: 'auto' }}>
+    
+    <div>
+      <Button className="my-3" size="sm" onClick={subsolution}>
+        Submit
+      </Button>
+    </div>
+  </form>
+  {result && result.warnings === "" && result.total === result.passed && (
+    <ScrollShadow className='pl-5'>
+      <div className="text-green-600">Accepted</div>
+      {`Passed ${result.passed}/${result.total} testcases.`}
+    </ScrollShadow>
+  )}
+  {result && result.warnings === "" && result.total !== result.passed && (
+    <ScrollShadow className='pl-5'>
+      <div className="text-grey-600">All testcases are not passed</div>
+      {`Passed ${result.passed}/${result.total} testcases.`}
+    </ScrollShadow>
+  )}
+</Panel>
 
-              </Panel>
             </PanelGroup>
           </Panel>
         </PanelGroup>

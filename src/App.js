@@ -13,16 +13,16 @@ function App() {
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     const c = document.cookie.split("=")[1]
-    if (c !== "") {
-      setLoggedin(true);
+    if (c !== undefined) {
       fetch(`${process.env.REACT_APP_API_URL}/session`, {
         method: 'POST',
         credentials: 'include',
       }).then(response => response.json()).then(data => setSession(data)).catch(error => {
         console.error('There was a problem with login', error);
       });
+    setLoggedin(true)
     }
-  }, [loggedin])
+  },[])
 
 
   return (

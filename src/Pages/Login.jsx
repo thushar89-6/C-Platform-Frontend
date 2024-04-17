@@ -19,7 +19,12 @@ function Login(props) {
         method: 'POST',
         credentials: 'include',
         body: formData
-        }).then(response => response.text()).then(data => setData(data))
+        }).then(response => response.text()).then(data => {
+          setData(data);
+          console.log(data)
+          if(data.success=="true") props.setlogin(true)
+        } 
+        )
         .catch(error => {
         console.error('There was a problem with login', error);
       });    

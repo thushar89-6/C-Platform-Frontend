@@ -30,7 +30,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home toggle={{dark,setdark}} session={session} loggedin={loggedin}/>} />
-              <Route path="/question/*" element={<Question toggle={{dark,setdark}}   session={session} loggedin={loggedin}/>}/> 
+              <Route path="/question/*" element={<Question toggle={{dark,setdark}}   session={session} loggedin={loggedin} setlogin={setLoggedin}/>}/> 
               <Route path="/login" element={<Login toggle={{dark,setdark}}  session={session} loggedin={loggedin}/>}/>
               <Route path="/register" element={<Register toggle={{dark,setdark}} session={session} loggedin={loggedin}/>} />
 

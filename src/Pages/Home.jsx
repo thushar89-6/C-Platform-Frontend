@@ -17,9 +17,8 @@ function Home(props) {
         setarr(data);
         console.log(props.loggedin)
         const formData = new FormData();
-        formData.append('points',1000);
-      
         fetch(`${process.env.REACT_APP_API_URL}/recommend`, {
+        credentials: 'include',
         method: 'POST',
         body: formData
         }).then(response => response.json()).then(data => setrecc(data))
@@ -35,9 +34,13 @@ function Home(props) {
 
         <Navbar {...props}></Navbar>
 
-        <h3 className='pl-[276px]'> Recommended Questions: </h3>
         <div className='flex justify-center'>
           <ListboxWrapper>
+            <Listbox>
+              <ListboxItem>Recommended Questions: 
+              <Divider className='mt-1'/>
+              <Divider className='mt-1'/></ListboxItem>
+            </Listbox>
             <Listbox>
               {rec  && rec.list.map((ele,index)=>(
                   <ListboxItem className="">
@@ -52,6 +55,11 @@ function Home(props) {
         </div>
         <div className='flex justify-center'>
           <ListboxWrapper>
+          <Listbox>
+              <ListboxItem>All Questions: 
+              <Divider className='mt-1'/>
+              <Divider className='mt-1'/></ListboxItem>
+            </Listbox>
             <Listbox>
               {arr && arr.map((ele,index)=>(
                   <ListboxItem className="">
